@@ -1,5 +1,5 @@
-import type { Route } from "./+types/home";
-
+import { OpenIpoList } from "~/modules/OpenIpoList";
+import type { Route } from "./+types/open_ipos";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -8,6 +8,6 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-export default function Home() {
-  return <></>;
+export default function List() {
+  return <OpenIpoList />;
 }
