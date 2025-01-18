@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "react-router build && node vercel/prepare.js",
+    "build": "react-router build ",
     "dev": "react-router dev",
     "start": "cross-env NODE_ENV=production react-router-serve ./build/server/index.js",
     "typecheck": "react-router typegen && tsc"
@@ -37,7 +37,6 @@
   },
   "devDependencies": {
     "@react-router/dev": "^7.1.1",
-    "@types/express": "^5.0.0",
     "@types/node": "^20.17.10",
     "@types/react": "^19.0.1",
     "@types/react-dom": "^19.0.1",
