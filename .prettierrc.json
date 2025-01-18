@@ -1,0 +1,15 @@
+{
+    "tabWidth": 2,
+    "useTabs": false,
+    "singleQuote": true,
+    "trailingComma": "all",
+    "semi": false,
+    "bracketSameLine": false,
+    "quoteProps": "as-needed",
+    "endOfLine": "lf",
+    "jsxSingleQuote": true,
+    "printWidth": 100,
+    "plugins": [],
+    "pluginSearchDirs": ["."]
+  }
+  
