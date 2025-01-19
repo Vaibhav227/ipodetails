@@ -7,7 +7,9 @@ import { formatDate } from '~/lib/format'
 
 import { Badge } from '~/components/ui/badge'
 import { useQuery } from '@tanstack/react-query'
-import { ArrowUpIcon } from 'lucide-react'
+import { ArrowUpIcon, Megaphone } from 'lucide-react'
+import GMPBanner from './GMPBanner'
+import BaseFire from './BaseFire'
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -108,8 +110,10 @@ export function OpenIpoList() {
   const ipos = tranformIpos(data?.data ?? [])
 
   return (
-    <main className='flex items-center justify-center  pt-16 pb-4'>
+    <main className='flex flex-col items-center justify-center  pt-16 pb-4 gap-6'>
+      <GMPBanner />
       <DataTable columns={columns} data={ipos} isLoading={isLoading} />
+      <BaseFire />
     </main>
   )
 }

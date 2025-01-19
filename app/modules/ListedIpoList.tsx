@@ -20,6 +20,8 @@ export type Payment = {
 }
 
 import { ArrowUpIcon } from 'lucide-react'
+import GMPBanner from './GMPBanner'
+import BaseFire from './BaseFire'
 
 const tranformIpos = (data: any) => {
   return data.map((ipo) => ({
@@ -51,8 +53,10 @@ export function ListedIpoList() {
   const ipos = tranformIpos(data?.data ?? [])
 
   return (
-    <main className='flex items-center justify-center  pt-16 pb-4'>
+    <main className='flex flex-col items-center justify-center  pt-16 pb-4 gap-6'>
+      <GMPBanner />
       <DataTable columns={columns} data={ipos} isLoading={isLoading} />
+      <BaseFire />
     </main>
   )
 }

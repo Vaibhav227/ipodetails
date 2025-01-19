@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { GalleryVerticalEnd, Minus, Plus } from 'lucide-react'
+import { ChartNoAxesCombined, GalleryVerticalEnd, Minus, Plus } from 'lucide-react'
 import { useLocation } from 'react-router'
 
 import { SearchForm } from '~/components/search-form'
@@ -61,7 +61,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             <SidebarMenuButton size='lg' asChild>
               <a href='#'>
                 <div className='flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground'>
-                  <GalleryVerticalEnd className='size-4' />
+                  <ChartNoAxesCombined className='size-6' />
                 </div>
                 <div className='flex flex-col gap-0.5 leading-none'>
                   <span className='font-semibold'>IPOMetrics</span>
@@ -70,7 +70,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
-        <SearchForm />
+        {/* <SearchForm /> */}
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>

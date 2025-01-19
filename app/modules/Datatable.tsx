@@ -89,7 +89,7 @@ export function DataTable<TData, TValue>({
         </Table>
       </div>
       <div className='flex justify-end'>
-        {table.getPageCount() > 10 && <DataTablePagination table={table} />}
+        {table.getRowCount() > 10 && <DataTablePagination table={table} />}
       </div>
     </div>
   )

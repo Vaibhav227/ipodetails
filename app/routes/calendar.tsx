@@ -1,12 +1,9 @@
-import type { Route } from "./+types/calendar";
+import type { Route } from './+types/calendar'
 
 export function meta({}: Route.MetaArgs) {
-  return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
-  ];
+  return [{ title: 'IPO Calendar' }, { name: 'description', content: 'Welcome to IPO Calendar!' }]
 }
 
 export default function Calendar() {
-  return <div>Calendar</div>;
+  return <div>Calendar</div>
 }
