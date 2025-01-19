@@ -60,7 +60,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <SidebarMenuItem>
             <SidebarMenuButton size='lg' asChild>
               <a href='#'>
-                <div className='flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground'>
+                <div className='flex aspect-square size-8 items-center justify-center rounded-lg bg-orange-500 dark:bg-orange-700 text-sidebar-primary-foreground'>
                   <ChartNoAxesCombined className='size-6' />
                 </div>
                 <div className='flex flex-col gap-0.5 leading-none'>

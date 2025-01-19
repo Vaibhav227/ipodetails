@@ -35,6 +35,28 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <Meta />
         <Links />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                const storageKey = 'vite-ui-theme';
+                const theme = localStorage.getItem(storageKey) || 'dark';
+                const root = document.documentElement;
+                
+                root.classList.remove('light', 'dark');
+                
+                if (theme === 'system') {
+                  const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
+                    ? 'dark'
+                    : 'light';
+                  root.classList.add(systemTheme);
+                } else {
+                  root.classList.add(theme);
+                }
+              })();
+            `,
+          }}
+        />
       </head>
       <body>
         <ThemeProvider defaultTheme='dark' storageKey='vite-ui-theme'>
