@@ -6,8 +6,9 @@ import { DataTable } from './Datatable'
 ;('use client')
 
 import { type ColumnDef } from '@tanstack/react-table'
-import { tranformIpos } from '~/api/transformers'
+
 import { columns } from './OpenIpoList'
+import { useQuery } from '@tanstack/react-query'
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -18,34 +19,40 @@ export type Payment = {
   email: string
 }
 
+import { ArrowUpIcon } from 'lucide-react'
+
+const tranformIpos = (data: any) => {
+  return data.map((ipo) => ({
+    name: ipo.name,
+    symbol: '-', // Add default value if not available
+    type: ipo.type,
+    status: ipo.status,
+    offerDate: ipo.offerDate,
+    lotSize: ipo.lotSize,
+    gmp: ipo.premiumPercent ? (
+      <div className='flex items-center gap-1'>
+        <ArrowUpIcon className='h-4 w-4 text-green-500' />
+        {`₹${ipo.premiumRange} (${ipo.premiumPercent})`}
+      </div>
+    ) : (
+      'N/A'
+    ),
+    priceRange: `₹${ipo.offerPrice}`,
+    subscription: ipo.subscription,
+  }))
+}
+
 export function ListedIpoList() {
-  const [ipos, setIpos] = useState([])
+  const { data, isLoading } = useQuery({
+    queryKey: ['listed-ipos'],
+    queryFn: () => axios.get('https://ipometrics-backend-1.onrender.com/api/ipos'),
+  })
 
-  useEffect(() => {
-    const fetchIpos = async () => {
-      try {
-        const response = await axios.get(
-          'https://ipometrics-backend-1.onrender.com/api/ipos',
-          // {
-          //   headers: {
-          //     "x-api-key":
-          //       "41e6ffd4d8d23044eff55a2a7eaeb458626eeadc013380a98d727949bd4c7cff",
-          //   },
-          // }
-        )
+  const ipos = tranformIpos(data?.data ?? [])
 
-        const tranformedData = tranformIpos(response.data)
-        setIpos(tranformedData ?? [])
-      } catch (error) {
-        console.error('Error fetching IPO data:', error)
-      }
-    }
-
-    fetchIpos()
-  }, [])
   return (
     <main className='flex items-center justify-center  pt-16 pb-4'>
-      <DataTable columns={columns} data={ipos} />
+      <DataTable columns={columns} data={ipos} isLoading={isLoading} />
     </main>
   )
 }

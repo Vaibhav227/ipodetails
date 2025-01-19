@@ -13,6 +13,7 @@
     "@radix-ui/react-dialog": "^1.1.4",
     "@radix-ui/react-dropdown-menu": "^2.1.4",
     "@radix-ui/react-label": "^2.1.1",
+    "@radix-ui/react-select": "^2.1.4",
     "@radix-ui/react-separator": "^1.1.1",
     "@radix-ui/react-slot": "^1.1.1",
     "@radix-ui/react-tooltip": "^1.1.6",
@@ -32,11 +33,13 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router": "^7.1.1",
+    "select": "link:@/registry/new-york/ui/select",
     "tailwind-merge": "^2.6.0",
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@react-router/dev": "^7.1.1",
+    "@tanstack/eslint-plugin-query": "^5.62.16",
     "@types/node": "^20.17.10",
     "@types/react": "^19.0.1",
     "@types/react-dom": "^19.0.1",
