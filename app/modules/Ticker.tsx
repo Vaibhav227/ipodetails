@@ -50,8 +50,8 @@ export const Ticker = () => {
   })
 
   return (
-    <div className='border-b z-500 overflow-hidden whitespace-nowrap bg-black'>
-      <div className='flex animate-ticker h-10 items-center bg-black z-500'>
+    <div className='border-b z-500 overflow-hidden whitespace-nowrap bg-inherit'>
+      <div className='flex animate-ticker h-10 items-center bg-inherit z-500'>
         {/* Create duplicated array for continuous loop */}
         {ipoData?.data?.map(
           (ipo, index) =>
