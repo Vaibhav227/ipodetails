@@ -36,7 +36,7 @@ export const columns: ColumnDef<Payment>[] = [
   {
     accessorKey: 'status',
     // header: 'Status',
-    header: () => <div className='w-[84px]'>Status</div>,
+    header: () => <div className='w-[130px]'>Status</div>,
     cell: ({ row }) => {
       const status = row.getValue('status') as string
       const mapVariant = {

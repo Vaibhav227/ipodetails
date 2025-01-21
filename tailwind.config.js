@@ -60,7 +60,16 @@ export default {
   				border: 'hsl(var(--sidebar-border))',
   				ring: 'hsl(var(--sidebar-ring))'
   			}
-  		}
+  		},
+  		animation: {
+  			'ticker': 'ticker 30s linear infinite',
+  		},
+  		keyframes: {
+  			ticker: {
+  				'0%': { transform: 'translateX(0)' },
+  				'100%': { transform: 'translateX(-50%)' },
+  			},
+  		},
   	}
   },
   plugins: [require("tailwindcss-animate")],

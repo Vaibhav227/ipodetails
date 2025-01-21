@@ -28,6 +28,7 @@ export const links: Route.LinksFunction = () => [
 ]
 
 export function Layout({ children }: { children: React.ReactNode }) {
+  const queryClient = new QueryClient()
   return (
     <html lang='en'>
       <head>
@@ -60,7 +61,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         <ThemeProvider defaultTheme='dark' storageKey='vite-ui-theme'>
-          <Page children={children} />
+          <QueryClientProvider client={queryClient}>
+            <Page children={children} />
+          </QueryClientProvider>
         </ThemeProvider>
         <ScrollRestoration />
         <Scripts />
