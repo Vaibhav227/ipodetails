@@ -46,7 +46,7 @@ function isPositivePercentage(percentString) {
 export const Ticker = () => {
   const { data: ipoData } = useQuery({
     queryKey: ['open-ipos'],
-    queryFn: () => axios.get('https://ipometrics-backend-1.onrender.com/api/ipos'),
+    queryFn: () => axios.get('https://ipometrics-backend-2.onrender.com/api/ipos'),
   })
 
   return (

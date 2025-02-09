@@ -37,10 +37,10 @@ export function DataTable<TData, TValue>({
   })
 
   return (
-    <div className='flex flex-col w-[90%] '>
-      <div className='rounded-md border '>
+    <div className='flex flex-col w-[95%]'>
+      <div className='rounded-md border h-[600px]'>
         <Table>
-          <TableHeader>
+          <TableHeader className='sticky top-0  z-10'>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
@@ -55,7 +55,7 @@ export function DataTable<TData, TValue>({
               </TableRow>
             ))}
           </TableHeader>
-          <TableBody>
+          <TableBody className='overflow-auto'>
             {isLoading ? (
               <>
                 {[...Array(5)].map((_, index) => (

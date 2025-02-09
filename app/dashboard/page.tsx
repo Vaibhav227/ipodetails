@@ -1,4 +1,5 @@
-import { AppSidebar } from '~/components/app-sidebar'
+import { useEffect } from 'react'
+import { AppSidebar, data } from '~/components/app-sidebar'
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -9,12 +10,24 @@ import {
 } from '~/components/ui/breadcrumb'
 import { ModeToggle } from '~/components/ui/mode-toggle'
 import { Separator } from '~/components/ui/separator'
-import { SidebarInset, SidebarProvider, SidebarTrigger } from '~/components/ui/sidebar'
+import {
+  SidebarFooter,
+  SidebarInset,
+  SidebarProvider,
+  SidebarTrigger,
+} from '~/components/ui/sidebar'
 import { useActiveRoute } from '~/hooks/use-active-route'
+import { NavUser } from '~/modules/NavUser'
 import { Ticker } from '~/modules/Ticker'
+import userStore from '~/store'
 
 export default function Page({ children }: { children: React.ReactNode }) {
   const activeRoute = useActiveRoute()
+  const { user } = userStore()
+
+  useEffect(() => {
+    console.log('user', user)
+  }, [user.email])
 
   return (
     <SidebarProvider>
@@ -44,8 +57,9 @@ export default function Page({ children }: { children: React.ReactNode }) {
               )}
             </BreadcrumbList>
           </Breadcrumb>
-          <div className='ml-auto'>
+          <div className='ml-auto flex items-center gap-2'>
             <ModeToggle />
+            {user.email && <NavUser user={user} />}
           </div>
         </header>
         <Ticker />

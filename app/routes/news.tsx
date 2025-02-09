@@ -11,7 +11,7 @@ export function meta({}: Route.MetaArgs) {
 export default function News() {
   const { data, isLoading } = useQuery({
     queryKey: ['news'],
-    queryFn: () => axios.get('https://ipometrics-backend-1.onrender.com/api/news'),
+    queryFn: () => axios.get('https://ipometrics-backend-2.onrender.com/api/news'),
   })
 
   return (

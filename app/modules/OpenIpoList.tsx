@@ -23,7 +23,7 @@ export type Payment = {
 export const columns: ColumnDef<Payment>[] = [
   {
     accessorKey: 'name',
-    header: () => <div className='w-[152px]'>Name</div>,
+    header: () => <div className='w-[50px]'>Name</div>,
   },
   // {
   //   accessorKey: 'symbol',
@@ -36,7 +36,7 @@ export const columns: ColumnDef<Payment>[] = [
   {
     accessorKey: 'status',
     // header: 'Status',
-    header: () => <div className='w-[130px]'>Status</div>,
+    header: () => <div className='!w-[130px]'>Status</div>,
     cell: ({ row }) => {
       const status = row.getValue('status') as string
       const mapVariant = {
@@ -51,7 +51,7 @@ export const columns: ColumnDef<Payment>[] = [
   {
     accessorKey: 'offerDate',
 
-    header: () => <div className='w-[90px]'>Offer Date</div>,
+    header: () => <div className='w-[120px]'>Offer Date</div>,
   },
   {
     accessorKey: 'lotSize',
@@ -104,7 +104,7 @@ const tranformIpos = (data: any) => {
 export function OpenIpoList() {
   const { data, isLoading } = useQuery({
     queryKey: ['live-ipos'],
-    queryFn: () => axios.get('https://ipometrics-backend-1.onrender.com/api/ipos/live'),
+    queryFn: () => axios.get('https://ipometrics-backend-2.onrender.com/api/ipos/live'),
   })
 
   const ipos = tranformIpos(data?.data ?? [])

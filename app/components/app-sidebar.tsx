@@ -42,6 +42,10 @@ export const data = {
       url: '/news',
     },
     {
+      title: 'IPO Alerts',
+      url: '/alerts',
+    },
+    {
       title: 'IPO Calendar',
       url: '#',
     },
@@ -84,6 +88,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                         <a href={item.url}>
                           <div className='w-full flex justify-between'>
                             {item.title}
+                            {item.url === '/alerts' && <Badge>New</Badge>}
                             {item.url === '#' && <Badge>Coming Soon</Badge>}
                           </div>
                         </a>

@@ -47,13 +47,13 @@ const tranformIpos = (data: any) => {
 export function ListedIpoList() {
   const { data, isLoading } = useQuery({
     queryKey: ['listed-ipos'],
-    queryFn: () => axios.get('https://ipometrics-backend-1.onrender.com/api/ipos'),
+    queryFn: () => axios.get('https://ipometrics-backend-2.onrender.com/api/ipos'),
   })
 
   const ipos = tranformIpos(data?.data ?? [])
 
   return (
-    <main className='flex flex-col items-center justify-center  pt-16 pb-4 gap-6'>
+    <main className='flex flex-col items-center justify-center pt-4 pb-4 gap-6'>
       <GMPBanner />
       <DataTable columns={columns} data={ipos} isLoading={isLoading} />
       <BaseFire />

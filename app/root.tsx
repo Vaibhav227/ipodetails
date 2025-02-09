@@ -7,11 +7,13 @@ import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query'
+import { createPortal } from 'react-dom'
 
 import type { Route } from './+types/root'
 import stylesheet from './app.css?url'
 import { ThemeProvider } from './components/ThemeProvider'
 import Page from './dashboard/page'
+import Authentication from './modules/Authentication'
 
 export const links: Route.LinksFunction = () => [
   { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
@@ -29,6 +31,7 @@ export const links: Route.LinksFunction = () => [
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const queryClient = new QueryClient()
+
   return (
     <html lang='en'>
       <head>
@@ -76,6 +79,7 @@ export default function App() {
   const queryClient = new QueryClient()
   return (
     <QueryClientProvider client={queryClient}>
+      <Authentication />
       <Outlet />
     </QueryClientProvider>
   )
