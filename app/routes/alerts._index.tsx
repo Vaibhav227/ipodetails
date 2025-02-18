@@ -49,8 +49,8 @@ export default function GetAllAlerts() {
   })
 
   const { data: iposData, isFetching: iposLoading } = useQuery({
-    queryKey: ['live-ipos'],
-    queryFn: () => axios.get('https://ipometrics-backend-2.onrender.com/api/ipos/live'),
+    queryKey: ['all-ipos'],
+    queryFn: () => axios.get('https://ipometrics-backend-2.onrender.com/api/ipos'),
   })
 
   // Create a mapping of IPO IDs to names

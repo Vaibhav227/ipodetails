@@ -7,7 +7,7 @@ import { DataTable } from './Datatable'
 
 import { type ColumnDef } from '@tanstack/react-table'
 
-import { columns } from './OpenIpoList'
+import { columns, tranformIpos } from './OpenIpoList'
 import { useQuery } from '@tanstack/react-query'
 
 // This type is used to define the shape of our data.
@@ -22,27 +22,6 @@ export type Payment = {
 import { ArrowUpIcon } from 'lucide-react'
 import GMPBanner from './GMPBanner'
 import BaseFire from './BaseFire'
-
-const tranformIpos = (data: any) => {
-  return data.map((ipo) => ({
-    name: ipo.name,
-    symbol: '-', // Add default value if not available
-    type: ipo.type,
-    status: ipo.status,
-    offerDate: ipo.offerDate,
-    lotSize: ipo.lotSize,
-    gmp: ipo.premiumPercent ? (
-      <div className='flex items-center gap-1'>
-        <ArrowUpIcon className='h-4 w-4 text-green-500' />
-        {`₹${ipo.premiumRange} (${ipo.premiumPercent})`}
-      </div>
-    ) : (
-      'N/A'
-    ),
-    priceRange: `₹${ipo.offerPrice}`,
-    subscription: ipo.subscription,
-  }))
-}
 
 export function ListedIpoList() {
   const { data, isLoading } = useQuery({

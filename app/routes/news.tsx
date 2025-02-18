@@ -39,7 +39,7 @@ export default function News() {
             ))}
       </div>
 
-      {/* <BaseFire /> */}
+      <BaseFire />
     </main>
   )
 }

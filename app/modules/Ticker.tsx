@@ -49,7 +49,7 @@ export const Ticker = () => {
     queryFn: () => axios.get('https://ipometrics-backend-2.onrender.com/api/ipos'),
   })
 
-  return (
+  return ipoData?.data ? (
     <div className='border-b z-500 overflow-hidden whitespace-nowrap bg-inherit'>
       <div className='flex animate-ticker h-10 items-center bg-inherit z-500'>
         {/* Create duplicated array for continuous loop */}
@@ -95,5 +95,7 @@ export const Ticker = () => {
         )}
       </div>
     </div>
+  ) : (
+    <></>
   )
 }

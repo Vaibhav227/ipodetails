@@ -36,7 +36,7 @@ export const columns: ColumnDef<Payment>[] = [
   {
     accessorKey: 'status',
     // header: 'Status',
-    header: () => <div className='!w-[130px]'>Status</div>,
+    header: () => <div className='!w-[110px]'>Status</div>,
     cell: ({ row }) => {
       const status = row.getValue('status') as string
       const mapVariant = {
@@ -52,6 +52,7 @@ export const columns: ColumnDef<Payment>[] = [
     accessorKey: 'offerDate',
 
     header: () => <div className='w-[120px]'>Offer Date</div>,
+    cell: ({ row }) => <div className='w-[100px] '>{row.getValue('offerDate')}</div>,
   },
   {
     accessorKey: 'lotSize',
@@ -68,7 +69,17 @@ export const columns: ColumnDef<Payment>[] = [
   },
   {
     accessorKey: 'priceRange',
-    header: 'Price Range',
+    header: 'Price',
+    // cell: ({ row }) => {
+    //   const price = row.getValue('priceRange') as string
+    //   // Check if price contains a hyphen (range)
+    //   if (price.includes('-')) {
+    //     const [min, max] = price.split('-')
+    //     return `₹${min.trim()} - ₹${max.trim()}`
+    //   }
+    //   // Single price
+    //   return `₹${price}`
+    // },
   },
   {
     accessorKey: 'subscription',
@@ -80,7 +91,17 @@ export const columns: ColumnDef<Payment>[] = [
   // },
 ]
 
-const tranformIpos = (data: any) => {
+const priceRange = (price: string) => {
+  if (price.includes('-')) {
+    const [min, max] = price.split('-')
+    console.log(min, max)
+    return `₹${min.trim()} - ₹${max.trim()}`
+  }
+  // Single price
+  return `₹${price}`
+}
+
+export const tranformIpos = (data: any) => {
   return data.map((ipo) => ({
     name: ipo.name,
     symbol: '-', // Add default value if not available
@@ -96,7 +117,7 @@ const tranformIpos = (data: any) => {
     ) : (
       'N/A'
     ),
-    priceRange: `₹${ipo.offerPrice}`,
+    priceRange: priceRange(ipo.offerPrice),
     subscription: ipo.subscription,
   }))
 }

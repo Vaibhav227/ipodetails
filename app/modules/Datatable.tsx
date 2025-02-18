@@ -45,7 +45,7 @@ export function DataTable<TData, TValue>({
     <div className='flex flex-col w-[95%] h-full'>
       <div className='rounded-md border h-full'>
         <Table className='h-full'>
-          <TableHeader className='sticky top-0  z-1000 bg-white '>
+          <TableHeader className='sticky top-0 bg-background z-50 border-b'>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {

@@ -45,8 +45,8 @@ export default function AddNewAlert() {
   const { user } = userStore()
   const navigate = useNavigate()
   const { data: iposData, isLoading } = useQuery({
-    queryKey: ['live-ipos'],
-    queryFn: () => axios.get('https://ipometrics-backend-2.onrender.com/api/ipos/live'),
+    queryKey: ['all-ipos'],
+    queryFn: () => axios.get('https://ipometrics-backend-2.onrender.com/api/ipos'),
   })
 
   const sendAlert = useMutation({
@@ -59,7 +59,13 @@ export default function AddNewAlert() {
       }),
   })
 
-  const filteredIpos = iposData?.data?.filter((ipo: any) => !!ipo.premiumPercent)
+  const filteredIpos = iposData?.data?.filter(
+    (ipo: any) =>
+      !!ipo.premiumPercent &&
+      (ipo.status.toLowerCase() === 'pre-apply' ||
+        ipo.status.toLowerCase() === 'allotment awaited' ||
+        ipo.status.toLowerCase() === 'live'),
+  )
 
   console.log('filteredIpos', filteredIpos)
 
