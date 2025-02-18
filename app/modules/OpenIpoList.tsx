@@ -24,6 +24,7 @@ export const columns: ColumnDef<Payment>[] = [
   {
     accessorKey: 'name',
     header: () => <div className='w-[50px]'>Name</div>,
+    cell: ({ row }) => <div className='w-[100px] '>{row.getValue('name')}</div>,
   },
   // {
   //   accessorKey: 'symbol',

@@ -15,7 +15,7 @@ export default function News() {
   })
 
   return (
-    <main className='flex flex-col items-center justify-center  pt-16 pb-4 gap-6 w-full h-full overflow-y-auto'>
+    <main className='flex flex-col items-center justify-center  pt-4 pb-4 gap-6 w-full h-full overflow-y-auto'>
       <div className='w-[90%] h-full flex flex-col gap-6'>
         {isLoading
           ? Array.from({ length: 6 }).map((_, index) => (
