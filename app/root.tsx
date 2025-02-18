@@ -7,13 +7,13 @@ import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query'
-import { createPortal } from 'react-dom'
 
 import type { Route } from './+types/root'
 import stylesheet from './app.css?url'
 import { ThemeProvider } from './components/ThemeProvider'
 import Page from './dashboard/page'
 import Authentication from './modules/Authentication'
+import userStore from './store'
 
 export const links: Route.LinksFunction = () => [
   { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
@@ -31,6 +31,7 @@ export const links: Route.LinksFunction = () => [
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const queryClient = new QueryClient()
+  const { user } = userStore()
 
   return (
     <html lang='en'>
@@ -65,7 +66,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <body>
         <ThemeProvider defaultTheme='dark' storageKey='vite-ui-theme'>
           <QueryClientProvider client={queryClient}>
-            <Page children={children} />
+            {!user.email ? <Authentication /> : <Page children={children} />}
           </QueryClientProvider>
         </ThemeProvider>
         <ScrollRestoration />
@@ -77,10 +78,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   const queryClient = new QueryClient()
+  const { user } = userStore()
+
   return (
     <QueryClientProvider client={queryClient}>
-      <Authentication />
-      <Outlet />
+      {!user.email ? <Authentication /> : <Outlet />}
     </QueryClientProvider>
   )
 }

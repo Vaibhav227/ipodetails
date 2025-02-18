@@ -10,12 +10,7 @@ import {
 } from '~/components/ui/breadcrumb'
 import { ModeToggle } from '~/components/ui/mode-toggle'
 import { Separator } from '~/components/ui/separator'
-import {
-  SidebarFooter,
-  SidebarInset,
-  SidebarProvider,
-  SidebarTrigger,
-} from '~/components/ui/sidebar'
+import { SidebarInset, SidebarProvider, SidebarTrigger } from '~/components/ui/sidebar'
 import { useActiveRoute } from '~/hooks/use-active-route'
 import { NavUser } from '~/modules/NavUser'
 import { Ticker } from '~/modules/Ticker'
@@ -63,7 +58,7 @@ export default function Page({ children }: { children: React.ReactNode }) {
           </div>
         </header>
         <Ticker />
-        <div className='h-[calc(100dvh-120px)]'>{children}</div>
+        <div className='h-[calc(100dvh-300px)] mt-8'>{children}</div>
       </SidebarInset>
     </SidebarProvider>
   )

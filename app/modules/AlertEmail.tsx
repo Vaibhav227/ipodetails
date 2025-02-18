@@ -22,21 +22,36 @@ const AlertEmail = ({ username, ipo, gmpThreshold }: AlertEmailProps) => (
     <Preview>{`GMP of ${ipo} has reached ${gmpThreshold}%`}</Preview>
     <Body style={main}>
       <Container style={container}>
-        <Img src={'./../../public/favicon.ico'} width='32' height='32' alt='Ipometrics' />
+        <Img
+          src={'./../../public/favicon.ico'}
+          width='32'
+          height='32'
+          alt='Ipometrics'
+          className='rounded-lg'
+        />
 
         <Text style={title}>
           <strong>@{username}</strong>, Alert for {ipo}
         </Text>
 
         <Section style={section}>
-          <Text style={text}>
-            Hey <strong>{username}</strong>!
-          </Text>
-          <Text style={text}>
-            GMP of <strong>{ipo}</strong> has reached <strong>{gmpThreshold}%</strong>.
-          </Text>
+          <div className='p-6'>
+            <Text style={text}>
+              Hey <strong>{username}</strong>!
+            </Text>
+            <Text style={text}>
+              GMP of <strong>{ipo}</strong> has reached {'>'} <strong>{gmpThreshold}%</strong>.
+            </Text>
 
-          <Button style={button}>Go to IpoMetrics</Button>
+            <Button
+              onClick={() => {
+                globalThis.open('https://ipometrics.vaibhu.com/open_ipos', '_blank')
+              }}
+              style={button}
+            >
+              Go to IPOMetrics
+            </Button>
+          </div>
         </Section>
 
         <Text style={footer}>IPOMetrics ・New Delhi, India</Text>
@@ -84,6 +99,7 @@ const button = {
   lineHeight: 1.5,
   borderRadius: '0.5em',
   padding: '12px 24px',
+  cursor: 'pointer',
 }
 
 const links = {

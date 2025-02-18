@@ -34,18 +34,23 @@ export function DataTable<TData, TValue>({
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    initialState: {
+      pagination: {
+        pageSize: 5,
+      },
+    },
   })
 
   return (
-    <div className='flex flex-col w-[95%]'>
-      <div className='rounded-md border h-[600px]'>
-        <Table>
-          <TableHeader className='sticky top-0  z-10'>
+    <div className='flex flex-col w-[95%] h-full'>
+      <div className='rounded-md border h-full'>
+        <Table className='h-full'>
+          <TableHeader className='sticky top-0  z-1000 bg-white '>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id}>
+                    <TableHead key={header.id} className=''>
                       {header.isPlaceholder
                         ? null
                         : flexRender(header.column.columnDef.header, header.getContext())}
@@ -89,7 +94,7 @@ export function DataTable<TData, TValue>({
         </Table>
       </div>
       <div className='flex justify-end'>
-        {table.getRowCount() > 10 && <DataTablePagination table={table} />}
+        {table.getRowCount() > 5 && <DataTablePagination table={table} />}
       </div>
     </div>
   )

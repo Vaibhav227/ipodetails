@@ -53,7 +53,7 @@ export function ListedIpoList() {
   const ipos = tranformIpos(data?.data ?? [])
 
   return (
-    <main className='flex flex-col items-center justify-center pt-4 pb-4 gap-6'>
+    <main className='flex flex-col items-center justify-center pt-4 pb-4 gap-6 h-full'>
       <GMPBanner />
       <DataTable columns={columns} data={ipos} isLoading={isLoading} />
       <BaseFire />

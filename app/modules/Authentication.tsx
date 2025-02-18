@@ -1,7 +1,5 @@
 import { useState, useEffect } from 'react'
 import { type Session } from '@supabase/supabase-js'
-import { Auth } from '@supabase/auth-ui-react'
-import { ThemeSupa } from '@supabase/auth-ui-shared'
 import { supabase } from '../lib/supabaseClient'
 import { useNavigate } from 'react-router'
 import { Skeleton } from '~/components/ui/skeleton'
@@ -48,13 +46,13 @@ export default function Authentication() {
 
   if (!session && isPageMounted) {
     return (
-      <div className='w-full h-full flex flex-col gap-8 items-center justify-center'>
+      <div className='h-[calc(100dvh)] w-full flex flex-col gap-8 items-center justify-center'>
         <Button onClick={signup}>Sign up with Google</Button>
       </div>
     )
   } else if (!isPageMounted) {
     return (
-      <div className='w-full h-full flex flex-col gap-8 items-center justify-center'>
+      <div className='w-full h-[calc(100dvh)] flex flex-col gap-8 items-center justify-center'>
         <Skeleton className='w-[60%] h-16' />
         <Skeleton className='w-[60%] h-16' />
         <Skeleton className='w-[60%] h-16' />
