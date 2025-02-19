@@ -50,43 +50,22 @@ export const Ticker = () => {
   })
 
   return ipoData?.data ? (
-    <div className='border-b z-500 overflow-hidden whitespace-nowrap bg-inherit'>
-      <div className='flex animate-ticker h-10 items-center bg-inherit z-500'>
-        {/* Create duplicated array for continuous loop */}
+    <div className='border-b z-500 overflow-hidden whitespace-nowrap bg-inherit relative'>
+      <div className='animate-ticker inline-flex h-10 items-center bg-inherit z-500'>
         {ipoData?.data?.map(
           (ipo, index) =>
             ipo?.premiumPercent && (
-              <span key={ipo.id} className='flex px-6'>
+              <span key={ipo.id} className='flex px-6 items-center'>
                 {ipo.name}
                 {isPositivePercentage(ipo.premiumPercent) ? (
-                  <ArrowUpIcon className='h-6 w-6 text-green-500' />
+                  <ArrowUpIcon className='h-6 w-6 text-green-500 ml-1' />
                 ) : (
-                  <ArrowDownIcon className='h-6 w-6 text-red-500' />
+                  <ArrowDownIcon className='h-6 w-6 text-red-500 ml-1' />
                 )}
                 <span
                   className={`${
                     isPositivePercentage(ipo.premiumPercent) ? 'text-green-500' : 'text-red-500'
-                  }`}
-                >
-                  {ipo.premiumPercent}
-                </span>
-              </span>
-            ),
-        )}
-        {ipoData?.data?.map(
-          (ipo, index) =>
-            ipo?.premiumPercent && (
-              <span key={ipo.id} className='flex px-6'>
-                {ipo.name}
-                {isPositivePercentage(ipo?.premiumPercent) ? (
-                  <ArrowUpIcon className='h-6 w-6 text-green-500' />
-                ) : (
-                  <ArrowDownIcon className='h-6 w-6 text-red-500' />
-                )}
-                <span
-                  className={`${
-                    isPositivePercentage(ipo.premiumPercent) ? 'text-green-500' : 'text-red-500'
-                  }`}
+                  } ml-1`}
                 >
                   {ipo.premiumPercent}
                 </span>

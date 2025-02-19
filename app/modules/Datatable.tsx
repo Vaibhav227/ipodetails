@@ -43,8 +43,8 @@ export function DataTable<TData, TValue>({
 
   return (
     <div className='flex flex-col w-[95%] h-full'>
-      <div className='rounded-md border h-full'>
-        <Table className='h-full'>
+      <div className='rounded-md border h-[440px] flex flex-col'>
+        <Table>
           <TableHeader className='sticky top-0 bg-background z-50 border-b'>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
@@ -60,11 +60,11 @@ export function DataTable<TData, TValue>({
               </TableRow>
             ))}
           </TableHeader>
-          <TableBody className='overflow-auto'>
+          <TableBody className='overflow-y-auto'>
             {isLoading ? (
               <>
                 {[...Array(5)].map((_, index) => (
-                  <TableRow key={index}>
+                  <TableRow key={index} className='h-[40px]'>
                     {[...Array(columns.length)].map((_, cellIndex) => (
                       <TableCell key={cellIndex}>
                         <Skeleton className='h-6 w-full' />
@@ -75,7 +75,11 @@ export function DataTable<TData, TValue>({
               </>
             ) : table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
-                <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
+                <TableRow
+                  key={row.id}
+                  data-state={row.getIsSelected() && 'selected'}
+                  className='h-[40px]'
+                >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
@@ -84,9 +88,9 @@ export function DataTable<TData, TValue>({
                 </TableRow>
               ))
             ) : (
-              <TableRow>
-                <TableCell colSpan={columns.length} className='h-24 text-center'>
-                  No results.
+              <TableRow className='h-[40px]'>
+                <TableCell colSpan={columns.length} className='text-center'>
+                  No IPO's found. Check back later.
                 </TableCell>
               </TableRow>
             )}
