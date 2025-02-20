@@ -1,5 +1,5 @@
 {
    "rewrites":  [
-       {"source": "/app/:path*", "destination": "https://ipodetails-main.vercel.app/:path*"}
+       {"source": "/app/:path*", "destination": "https://ipodetails-main.vercel.app/app/:path*"}
     ]
 }
