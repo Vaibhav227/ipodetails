@@ -46,10 +46,6 @@ export const data = {
       url: '/alerts',
     },
     {
-      title: 'IPO Calendar',
-      url: '#',
-    },
-    {
       title: "Developer API's",
       url: '/docs',
     },
