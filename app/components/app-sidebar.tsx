@@ -49,6 +49,10 @@ export const data = {
       title: 'IPO Calendar',
       url: '#',
     },
+    {
+      title: "Developer API's",
+      url: '/docs',
+    },
   ],
 }
 
@@ -89,7 +93,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                           <div className='w-full flex justify-between'>
                             {item.title}
                             {item.url === '/alerts' && <Badge>New</Badge>}
-                            {item.url === '#' && <Badge>Coming Soon</Badge>}
+                            {item.url === '/docs' && <Badge>Version 1.0.0</Badge>}
                           </div>
                         </a>
                       </SidebarMenuButton>
