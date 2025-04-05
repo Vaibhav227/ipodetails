@@ -90,6 +90,39 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                             {item.title}
                             {item.url === '/alerts' && <Badge>New</Badge>}
                             {item.url === '/docs' && <Badge>Version 1.0.0</Badge>}
+                            {item.url === '/news' && (
+                              <Badge
+                                className='
+                                relative overflow-hidden
+                                bg-gradient-to-r from-orange-600 via-orange-500 to-orange-600
+                                text-white font-bold shadow-md 
+                                border border-orange-400
+                                before:absolute before:inset-0 
+                                before:bg-gradient-to-r before:from-orange-600 before:via-orange-400 before:to-orange-600
+                                before:animate-gradient before:bg-[length:200%_auto] 
+                                before:opacity-80 before:blur-[1px] before:-z-10
+                                after:absolute after:inset-0 after:rounded-full after:shadow-[0_0_8px_2px_rgba(249,115,22,0.5)]
+                                flex items-center gap-1.5 px-2
+                                group hover:scale-105 transition-transform duration-300
+                              '
+                              >
+                                <svg
+                                  xmlns='http://www.w3.org/2000/svg'
+                                  viewBox='0 0 24 24'
+                                  fill='none'
+                                  stroke='currentColor'
+                                  strokeWidth='2'
+                                  strokeLinecap='round'
+                                  strokeLinejoin='round'
+                                  className='w-3 h-3 animate-pulse group-hover:animate-bounce'
+                                >
+                                  <rect width='18' height='10' x='3' y='8' rx='2' />
+                                  <path d='M12 8v10' />
+                                  <path d='M8 12h8' />
+                                </svg>
+                                AI Summary
+                              </Badge>
+                            )}
                           </div>
                         </a>
                       </SidebarMenuButton>

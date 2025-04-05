@@ -67,7 +67,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <body>
         <ThemeProvider defaultTheme='dark' storageKey='vite-ui-theme'>
           <QueryClientProvider client={queryClient}>
-            {!user.email ? <Authentication /> : <Page children={children} />}
+            {/* {!user.email ? <Authentication /> : <Page children={children} />} */}
+            <Page children={children} />
           </QueryClientProvider>
           <Analytics />
         </ThemeProvider>
@@ -84,7 +85,8 @@ export default function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {!user.email ? <Authentication /> : <Outlet />}
+      {/* {!user.email ? <Authentication /> : <Outlet />} */}
+      <Outlet />
     </QueryClientProvider>
   )
 }

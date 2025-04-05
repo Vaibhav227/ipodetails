@@ -58,7 +58,7 @@ export default function Page({ children }: { children: React.ReactNode }) {
           </div>
         </header>
         <Ticker />
-        <div className='h-[calc(100dvh-240px)] mt-8'>{children}</div>
+        <div className='h-full'>{children}</div>
       </SidebarInset>
     </SidebarProvider>
   )
