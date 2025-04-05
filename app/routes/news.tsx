@@ -31,7 +31,8 @@ export default function News() {
   })
 
   const { mutateAsync: summarize } = useMutation({
-    mutationFn: (link: string) => axios.post('http://localhost:3000/api/summarize-ai', { link }),
+    mutationFn: (link: string) =>
+      axios.post('https://ipometrics-backend-2.onrender.com/api/summarize-ai', { link }),
   })
 
   // Track state for each article individually
