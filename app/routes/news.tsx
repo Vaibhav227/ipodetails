@@ -31,8 +31,7 @@ export default function News() {
   })
 
   const { mutateAsync: summarize } = useMutation({
-    mutationFn: (link: string) =>
-      axios.post('https://ipometrics-backend-2.onrender.com/api/summarize-ai', { link }),
+    mutationFn: (link: string) => axios.post('/summarize-ai', { link }),
   })
 
   // Track state for each article individually
@@ -129,8 +128,8 @@ export default function News() {
     Boolean(summaryStates[itemId]?.displayText || summaryStates[itemId]?.isTyping)
 
   return (
-    <main className='flex flex-col items-center justify-center pt-4 pb-4 gap-6 w-full h-full overflow-y-auto'>
-      <div className='w-[90%] h-full flex flex-col gap-6'>
+    <main className='flex flex-col items-center justify-center pt-8 pb-4 gap-6 w-full h-full overflow-y-auto'>
+      <div className='w-[90%] h-full flex flex-col gap-16'>
         {isLoading
           ? Array.from({ length: 6 }).map((_, index) => (
               <div key={index} className='flex flex-col gap-4 border rounded-2xl p-8 '>
