@@ -46,7 +46,7 @@ export default function AddNewAlert() {
   const navigate = useNavigate()
   const { data: iposData, isLoading } = useQuery({
     queryKey: ['all-ipos'],
-    queryFn: () => axios.get('https://ipometrics-backend-2.onrender.com/api/ipos'),
+    queryFn: () => axios.get('/ipos'),
   })
 
   const sendAlert = useMutation({

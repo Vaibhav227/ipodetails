@@ -1,0 +1,45 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model IPO {
+  id             Int      @id @default(autoincrement())
+  name           String   @unique
+  offerDate      String?
+  offerPrice     String?
+  lotSize        String?
+  subscription   String?
+  type           String?
+  status         String?
+  premiumRange   String?
+  premiumPercent String?
+  lastUpdated    DateTime @default(now())
+  alerts         Alert[]
+}
+
+model IPONews {
+  id          Int      @id @default(autoincrement())
+  heading     String   @unique
+  description String
+  link        String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Alert {
+  id            Int      @id @default(autoincrement())
+  ipoId         Int
+  email         String
+  customMessage String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  isActive      Boolean  @default(true)
+  threshold     Float
+  ipo           IPO      @relation(fields: [ipoId], references: [id])
+}

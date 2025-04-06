@@ -126,7 +126,7 @@ export const tranformIpos = (data: any) => {
 export function OpenIpoList() {
   const { data, isLoading } = useQuery({
     queryKey: ['live-ipos'],
-    queryFn: () => axios.get('https://ipometrics-backend-2.onrender.com/api/ipos/live'),
+    queryFn: () => axios.get('ipos/live'),
   })
 
   const ipos = tranformIpos(data?.data ?? [])

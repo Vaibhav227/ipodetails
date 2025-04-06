@@ -44,13 +44,13 @@ export default function GetAllAlerts() {
     refetch,
   } = useQuery({
     queryKey: ['get-all-alerts'],
-    queryFn: () => axios.get('https://ipometrics-backend-2.onrender.com/api/get-all-alerts'),
+    queryFn: () => axios.get('/all-alerts'),
     staleTime: 0,
   })
 
   const { data: iposData, isFetching: iposLoading } = useQuery({
     queryKey: ['all-ipos'],
-    queryFn: () => axios.get('https://ipometrics-backend-2.onrender.com/api/ipos'),
+    queryFn: () => axios.get('/ipos'),
   })
 
   // Create a mapping of IPO IDs to names

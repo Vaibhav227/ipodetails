@@ -27,11 +27,11 @@ interface SummaryState {
 export default function News() {
   const { data, isLoading } = useQuery({
     queryKey: ['news'],
-    queryFn: () => axios.get('https://ipometrics-backend-2.onrender.com/api/news'),
+    queryFn: () => axios.get('news-articles'),
   })
 
   const { mutateAsync: summarize } = useMutation({
-    mutationFn: (link: string) => axios.post('/summarize-ai', { link }),
+    mutationFn: (link: string) => axios.post('summarize-ai', { link }),
   })
 
   // Track state for each article individually

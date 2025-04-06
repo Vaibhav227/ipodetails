@@ -26,7 +26,7 @@ import BaseFire from './BaseFire'
 export function ListedIpoList() {
   const { data, isLoading } = useQuery({
     queryKey: ['listed-ipos'],
-    queryFn: () => axios.get('https://ipometrics-backend-2.onrender.com/api/ipos'),
+    queryFn: () => axios.get('/ipos'),
   })
 
   const ipos = tranformIpos(data?.data ?? [])
