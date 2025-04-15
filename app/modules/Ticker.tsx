@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { useQuery } from '@tanstack/react-query'
+import { Skeleton } from '~/components/ui/skeleton'
 
 export const ArrowUpIcon = (props: React.SVGProps<SVGSVGElement>) => {
   return (
@@ -44,10 +45,20 @@ function isPositivePercentage(percentString) {
 }
 
 export const Ticker = () => {
-  const { data: ipoData } = useQuery({
+  const { data: ipoData, isFetching } = useQuery({
     queryKey: ['open-ipos'],
     queryFn: () => axios.get('/ipos'),
   })
+
+  if (isFetching && !ipoData) {
+    return (
+      <div className='border-b h-10 flex items-center'>
+        <div className='w-full'>
+          <Skeleton className='h-4 m-2' />
+        </div>
+      </div>
+    )
+  }
 
   return ipoData?.data ? (
     <div className='border-b z-500 overflow-hidden whitespace-nowrap bg-inherit relative'>
