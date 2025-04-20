@@ -1,10 +1,26 @@
+import { PrismaClient } from '@prisma/client'
+import { useMutation } from '@tanstack/react-query'
+import axios from 'axios'
+import { useEffect, useRef, useState } from 'react'
+import { type LoaderFunction, useLoaderData } from 'react-router'
+import { Button } from '~/components/ui/button'
 import BaseFire from '~/modules/BaseFire'
 import type { Route } from './+types/listed_ipos'
-import axios from 'axios'
-import { useMutation, useQuery } from '@tanstack/react-query'
-import { Skeleton } from '~/components/ui/skeleton'
-import { Button } from '~/components/ui/button'
-import { useState, useEffect, useRef } from 'react'
+
+// Initialize Prisma client
+const prisma = new PrismaClient()
+
+export const loader: LoaderFunction = async () => {
+  try {
+    const news = await prisma.iPONews.findMany({
+      orderBy: { createdAt: 'desc' },
+    })
+    return news
+  } catch (error) {
+    console.error('Failed to fetch IPO news:', error)
+    throw new Response('Failed to fetch IPO news', { status: 400 })
+  }
+}
 
 export function meta({}: Route.MetaArgs) {
   return [{ title: 'News' }, { name: 'description', content: 'Welcome to News!' }]
@@ -25,10 +41,7 @@ interface SummaryState {
 }
 
 export default function News() {
-  const { data, isLoading } = useQuery({
-    queryKey: ['news'],
-    queryFn: () => axios.get('news-articles'),
-  })
+  const data = useLoaderData<typeof loader>()
 
   const { mutateAsync: summarize } = useMutation({
     mutationFn: (link: string) => axios.post('summarize-ai', { link }),
@@ -130,77 +143,68 @@ export default function News() {
   return (
     <main className='flex flex-col items-center justify-center pt-8 pb-4 gap-6 w-full h-full overflow-y-auto'>
       <div className='w-[90%] h-full flex flex-col gap-16'>
-        {isLoading
-          ? Array.from({ length: 6 }).map((_, index) => (
-              <div key={index} className='flex flex-col gap-4 border rounded-2xl p-8 '>
-                <div className='space-y-4'>
-                  <Skeleton className='h-6 w-full' />
-                  <Skeleton className='h-6 w-[90%]' />
-                </div>
-              </div>
-            ))
-          : data?.data.map((item: NewsItem) => (
-              <div key={item.id} className='flex flex-col gap-4 border rounded-2xl p-4 '>
-                <h2 className='scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0'>
-                  {item.heading}
-                </h2>
-                <p className='leading-7 [&:not(:first-child)]:mt-1'>{item.description}</p>
+        {data?.map((item: NewsItem) => (
+          <div key={item.id} className='flex flex-col gap-4 border rounded-2xl p-4 '>
+            <h2 className='scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0'>
+              {item.heading}
+            </h2>
+            <p className='leading-7 [&:not(:first-child)]:mt-1'>{item.description}</p>
 
-                {!hasSummary(item.id) && (
-                  <Button
-                    onClick={() => handleSummarize(item)}
-                    className='bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-medium py-2 px-4 rounded-lg shadow-md transition-all duration-300 flex items-center gap-2'
-                    disabled={summaryStates[item.id]?.loading}
+            {!hasSummary(item.id) && (
+              <Button
+                onClick={() => handleSummarize(item)}
+                className='bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-medium py-2 px-4 rounded-lg shadow-md transition-all duration-300 flex items-center gap-2'
+                disabled={summaryStates[item.id]?.loading}
+              >
+                {summaryStates[item.id]?.loading ? (
+                  <>
+                    <div className='h-4 w-4 rounded-full border-2 border-white border-t-transparent animate-spin'></div>
+                    <span>Processing...</span>
+                  </>
+                ) : (
+                  <>
+                    <svg
+                      xmlns='http://www.w3.org/2000/svg'
+                      className='h-5 w-5'
+                      viewBox='0 0 20 20'
+                      fill='currentColor'
+                    >
+                      <path
+                        fillRule='evenodd'
+                        d='M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z'
+                        clipRule='evenodd'
+                      />
+                    </svg>
+                    <span>Get AI Summary of the News Article</span>
+                  </>
+                )}
+              </Button>
+            )}
+
+            {(summaryStates[item.id]?.displayText || summaryStates[item.id]?.isTyping) && (
+              <div className='bg-gradient-to-r from-orange-50 to-orange-100 border-l-4 border-orange-500 p-4 rounded-lg shadow-sm mt-2'>
+                <div className='flex items-center text-orange-600 text-xs font-semibold mb-2'>
+                  <svg
+                    xmlns='http://www.w3.org/2000/svg'
+                    className='h-4 w-4 mr-1'
+                    viewBox='0 0 20 20'
+                    fill='currentColor'
                   >
-                    {summaryStates[item.id]?.loading ? (
-                      <>
-                        <div className='h-4 w-4 rounded-full border-2 border-white border-t-transparent animate-spin'></div>
-                        <span>Processing...</span>
-                      </>
-                    ) : (
-                      <>
-                        <svg
-                          xmlns='http://www.w3.org/2000/svg'
-                          className='h-5 w-5'
-                          viewBox='0 0 20 20'
-                          fill='currentColor'
-                        >
-                          <path
-                            fillRule='evenodd'
-                            d='M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z'
-                            clipRule='evenodd'
-                          />
-                        </svg>
-                        <span>Get AI Summary of the News Article</span>
-                      </>
-                    )}
-                  </Button>
-                )}
-
-                {(summaryStates[item.id]?.displayText || summaryStates[item.id]?.isTyping) && (
-                  <div className='bg-gradient-to-r from-orange-50 to-orange-100 border-l-4 border-orange-500 p-4 rounded-lg shadow-sm mt-2'>
-                    <div className='flex items-center text-orange-600 text-xs font-semibold mb-2'>
-                      <svg
-                        xmlns='http://www.w3.org/2000/svg'
-                        className='h-4 w-4 mr-1'
-                        viewBox='0 0 20 20'
-                        fill='currentColor'
-                      >
-                        <path
-                          fillRule='evenodd'
-                          d='M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z'
-                          clipRule='evenodd'
-                        />
-                      </svg>
-                      AI SUMMARY
-                    </div>
-                    <p className='text-gray-700 font-medium' style={{ whiteSpace: 'pre-line' }}>
-                      {summaryStates[item.id]?.displayText}
-                    </p>
-                  </div>
-                )}
+                    <path
+                      fillRule='evenodd'
+                      d='M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z'
+                      clipRule='evenodd'
+                    />
+                  </svg>
+                  AI SUMMARY
+                </div>
+                <p className='text-gray-700 font-medium' style={{ whiteSpace: 'pre-line' }}>
+                  {summaryStates[item.id]?.displayText}
+                </p>
               </div>
-            ))}
+            )}
+          </div>
+        ))}
       </div>
 
       <BaseFire />
