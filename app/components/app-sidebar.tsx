@@ -46,6 +46,10 @@ export const data = {
       url: '/alerts',
     },
     {
+      title: 'IPO Stats',
+      url: '/ipostats',
+    },
+    {
       title: "Developer API's",
       url: '/docs',
     },
