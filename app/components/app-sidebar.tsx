@@ -49,10 +49,10 @@ export const data = {
       title: 'IPO Stats',
       url: '/ipostats',
     },
-    {
-      title: "Developer API's",
-      url: '/docs',
-    },
+    // {
+    //   title: "Developer API's",
+    //   url: '/docs',
+    // },
   ],
 }
 
@@ -93,7 +93,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                           <div className='w-full flex justify-between'>
                             {item.title}
                             {item.url === '/alerts' && <Badge>New</Badge>}
-                            {item.url === '/docs' && <Badge>Version 1.0.0</Badge>}
+                            {item.url === '' && <Badge>Version 1.0.0</Badge>}
                             {item.url === '/news' && (
                               <Badge
                                 className='
