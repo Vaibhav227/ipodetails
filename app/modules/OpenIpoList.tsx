@@ -52,8 +52,13 @@ export const columns: ColumnDef<Payment>[] = [
   {
     accessorKey: 'offerDate',
 
-    header: () => <div className='w-[120px]'>Offer Date</div>,
-    cell: ({ row }) => <div className='w-[100px] '>{row.getValue('offerDate')}</div>,
+    header: () => <div className='w-[130px]'>Offer Date</div>,
+    cell: ({ row }) => {
+      const dateStr = row.getValue('offerDate') as string
+      // Convert "May 2, 2025 - May 6, 2025" to "May 2 - May 6"
+      const shortDate = dateStr.replace(/(\w+ \d+),\s*\d{4}\s*-\s*(\w+ \d+),\s*\d{4}/g, '$1 - $2')
+      return <div className='w-[130px]'>{shortDate}</div>
+    },
   },
   {
     accessorKey: 'lotSize',
