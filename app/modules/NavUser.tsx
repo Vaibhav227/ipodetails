@@ -98,27 +98,27 @@ export function NavUser({
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuGroup>
+            {/* <DropdownMenuGroup>
               <DropdownMenuItem>
                 <Sparkles />
                 Upgrade to Pro
               </DropdownMenuItem>
-            </DropdownMenuGroup>
-            <DropdownMenuSeparator />
-            <DropdownMenuGroup>
-              <DropdownMenuItem>
+            </DropdownMenuGroup> */}
+            {/* <DropdownMenuSeparator /> */}
+            {/* <DropdownMenuGroup> */}
+            {/* <DropdownMenuItem>
                 <BadgeCheck />
                 Account
-              </DropdownMenuItem>
-              <DropdownMenuItem>
+              </DropdownMenuItem> */}
+            {/* <DropdownMenuItem>
                 <CreditCard />
                 Billing
-              </DropdownMenuItem>
-              <DropdownMenuItem>
+              </DropdownMenuItem> */}
+            {/* <DropdownMenuItem>
                 <Bell />
                 Notifications
-              </DropdownMenuItem>
-            </DropdownMenuGroup>
+              </DropdownMenuItem> */}
+            {/* </DropdownMenuGroup> */}
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={signout}>
               <LogOut />
