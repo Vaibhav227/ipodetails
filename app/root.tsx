@@ -1,5 +1,5 @@
 import { isRouteErrorResponse, Links, Meta, Outlet, Scripts, ScrollRestoration } from 'react-router'
-
+import { SpeedInsights } from '@vercel/speed-insights/remix'
 import {
   useQuery,
   useMutation,
@@ -70,6 +70,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
             {!user.email ? <Authentication /> : <Page children={children} />}
           </QueryClientProvider>
           <Analytics />
+          <SpeedInsights />
         </ThemeProvider>
         <ScrollRestoration />
         <Scripts />
