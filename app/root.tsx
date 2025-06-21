@@ -1,5 +1,5 @@
 import { isRouteErrorResponse, Links, Meta, Outlet, Scripts, ScrollRestoration } from 'react-router'
-import { SpeedInsights } from '@vercel/speed-insights/remix'
+import { SpeedInsights } from '@vercel/speed-insights/react'
 import {
   useQuery,
   useMutation,
