@@ -1,6 +1,14 @@
 import axios from 'axios'
 import { useQuery } from '@tanstack/react-query'
 import { Skeleton } from '~/components/ui/skeleton'
+import { useSidebar } from '~/components/ui/sidebar'
+import { cn } from '~/lib/utils'
+
+type IPO = {
+  id: number
+  name: string
+  premiumPercent: string | null
+}
 
 export const ArrowUpIcon = (props: React.SVGProps<SVGSVGElement>) => {
   return (
@@ -36,7 +44,7 @@ export const ArrowDownIcon = (props: React.SVGProps<SVGSVGElement>) => {
   )
 }
 
-function isPositivePercentage(percentString) {
+function isPositivePercentage(percentString: string) {
   // Remove % symbol and convert to float
   const value = parseFloat(percentString.replace('%', ''))
 
@@ -45,6 +53,7 @@ function isPositivePercentage(percentString) {
 }
 
 export const Ticker = () => {
+  const { open } = useSidebar()
   const { data: ipoData, isFetching } = useQuery({
     queryKey: ['open-ipos'],
     queryFn: () => axios.get('/ipos'),
@@ -61,10 +70,15 @@ export const Ticker = () => {
   }
 
   return ipoData?.data ? (
-    <div className='border-b z-500 overflow-hidden whitespace-nowrap bg-inherit relative'>
+    <div
+      className={cn(
+        'border-b z-500 overflow-hidden whitespace-nowrap bg-inherit relative',
+        open ? 'max-w-[calc(100vw-256px)]' : 'max-w-[100vw]',
+      )}
+    >
       <div className='animate-ticker inline-flex h-10 items-center bg-inherit z-500'>
         {ipoData?.data?.map(
-          (ipo, index) =>
+          (ipo: IPO) =>
             ipo?.premiumPercent && (
               <span key={ipo.id} className='flex px-6 items-center'>
                 {ipo.name}

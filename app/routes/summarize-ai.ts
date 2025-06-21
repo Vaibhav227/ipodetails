@@ -2,12 +2,13 @@ import type { ActionFunction } from 'react-router'
 import { createClient } from 'redis'
 
 // Initialize Redis client
+
 const redisClient = createClient({
   username: 'default',
-  password: 'wondWhtKEuqZIpJpo2KGCdNRMVEp1kFV',
+  password: 'YKZEo2Z9KmHAZjTDaucrr8iBA5JQqrfO',
   socket: {
-    host: 'redis-12518.c74.us-east-1-4.ec2.redns.redis-cloud.com',
-    port: 12518,
+    host: 'redis-19796.c267.us-east-1-4.ec2.redns.redis-cloud.com',
+    port: 19796,
   },
 })
 
