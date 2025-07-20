@@ -16,7 +16,7 @@ export function ModeToggle() {
       variant='outline'
       size='icon'
       onClick={toggleTheme}
-      className='relative overflow-hidden border-none'
+      className='relative overflow-hidden border-none hover:bg-transparent'
     >
       <Sun
         className={`h-[1.2rem] w-[1.2rem] transition-all duration-500
