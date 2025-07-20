@@ -7,6 +7,8 @@ export function ModeToggle() {
 
   const toggleTheme = () => {
     setTheme(theme === 'dark' ? 'light' : 'dark')
+    const audio = new Audio(`${import.meta.env.VITE_CDN_URL}/switch-on.mp3`)
+    audio.play()
   }
 
   return (
@@ -14,7 +16,7 @@ export function ModeToggle() {
       variant='outline'
       size='icon'
       onClick={toggleTheme}
-      className='relative overflow-hidden'
+      className='relative overflow-hidden border-none'
     >
       <Sun
         className={`h-[1.2rem] w-[1.2rem] transition-all duration-500
