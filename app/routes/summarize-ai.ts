@@ -3,19 +3,21 @@ import { createClient } from 'redis'
 
 // Initialize Redis client
 
+
+
 const redisClient = createClient({
   username: 'default',
-  password: 'YKZEo2Z9KmHAZjTDaucrr8iBA5JQqrfO',
+  password: import.meta.env.REDIS_PASSWORD,
   socket: {
-    host: 'redis-19796.c267.us-east-1-4.ec2.redns.redis-cloud.com',
-    port: 19796,
-  },
-})
+      host: 'redis-16305.c84.us-east-1-2.ec2.cloud.redislabs.com',
+      port: 16305
+  }
+});
 
 // Connect to Redis when needed (lazy initialization)
 let redisConnected = false
 async function ensureRedisConnection() {
-  console.log('ensureRedisConnection')
+  console.log('ensureRedisConnection',import.meta.env.REDIS_PASSWORD)
   if (!redisConnected) {
     await redisClient.connect().catch(console.error)
     redisConnected = true
