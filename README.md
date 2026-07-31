@@ -34,6 +34,35 @@ npm run dev
 
 Your application will be available at `http://localhost:5173`.
 
+### IPO Mood Integration
+
+The IPO Mood dashboard reads from the separate `ipo-mood-engine` API.
+
+For local development, start the mood API first from the `ipo-mood-engine` repo:
+
+```bash
+npm run dev:api
+```
+
+Then set this env var for `ipodetails`:
+
+```bash
+VITE_IPO_MOOD_API_URL=http://localhost:4000
+```
+
+Production should point to the deployed API, for example:
+
+```bash
+VITE_IPO_MOOD_API_URL=https://ipo-mood-engine-api.onrender.com
+```
+
+Routes added:
+
+```txt
+/ipo-mood
+/ipo-mood/:slug
+```
+
 ## Building for Production
 
 Create a production build:
