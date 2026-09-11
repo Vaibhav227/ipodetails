@@ -1,23 +1,29 @@
 import type { ActionFunction } from 'react-router'
-import { createClient } from 'redis'
+import { createClient, type RedisClientType } from 'redis'
 
-// Initialize Redis client
-
-
-
-const redisClient = createClient({
-  username: 'default',
-  password: "OuS5YitBIAOesw7gMfjYq9JqdXFdqPgy",
-  socket: {
-      host: 'redis-16305.c84.us-east-1-2.ec2.cloud.redislabs.com',
-      port: 16305
-  }
-});
-
-// Connect to Redis when needed (lazy initialization)
+let redisClient: RedisClientType | null = null
 let redisConnected = false
+
 async function ensureRedisConnection() {
-  console.log('ensureRedisConnection',import.meta.env.REDIS_PASSWORD)
+  if (!redisClient) {
+    const redisHost = process.env.REDIS_HOST
+    const redisPort = Number(process.env.REDIS_PORT)
+    const redisPassword = process.env.REDIS_PASSWORD
+
+    if (!redisHost || !redisPort || !redisPassword) {
+      throw new Error('Missing Redis configuration')
+    }
+
+    redisClient = createClient({
+      username: process.env.REDIS_USERNAME ?? 'default',
+      password: redisPassword,
+      socket: {
+        host: redisHost,
+        port: redisPort,
+      },
+    })
+  }
+
   if (!redisConnected) {
     await redisClient.connect().catch(console.error)
     redisConnected = true
@@ -25,27 +31,28 @@ async function ensureRedisConnection() {
 }
 
 async function run(model: string, input: Record<string, any>) {
-  console.log('run')
+  const cloudflareAccountId = process.env.CLOUDFLARE_ACCOUNT_ID
+  const cloudflareApiToken = process.env.CLOUDFLARE_API_TOKEN
+
+  if (!cloudflareAccountId || !cloudflareApiToken) {
+    throw new Error('Missing Cloudflare AI configuration')
+  }
 
   const response = await fetch(
-    `https://api.cloudflare.com/client/v4/accounts/191e8ab48716e9d5cff50c7e40ed52b7/ai/run/${model}`,
+    `https://api.cloudflare.com/client/v4/accounts/${cloudflareAccountId}/ai/run/${model}`,
     {
-      headers: { Authorization: 'Bearer 0MKRLnujI92mEyDcmFKdv4QV92_kxBAd7l2MUzbF' },
+      headers: { Authorization: `Bearer ${cloudflareApiToken}` },
       method: 'POST',
       body: JSON.stringify(input),
     },
   )
 
-  console.log('response')
   const result = await response.json()
   return result
 }
 
 export const action: ActionFunction = async ({ request }) => {
   try {
-    // Ensure method is POST
-
-    console.log('request.method')
     if (request.method !== 'POST') {
       return Response.json({ error: 'Method not allowed' }, { status: 405 })
     }
@@ -65,11 +72,10 @@ export const action: ActionFunction = async ({ request }) => {
     const cacheKey = `summarize:${link}`
 
     // Check if we have a cached result
-    const cachedResult = await redisClient.get(cacheKey)
+    const cachedResult = await redisClient?.get(cacheKey)
 
     if (cachedResult) {
       // Return cached result if available
-      console.log('Using cached result for', link)
       return Response.json(JSON.parse(cachedResult))
     }
 
@@ -87,10 +93,8 @@ export const action: ActionFunction = async ({ request }) => {
       ],
     })
 
-    console.log('AI credits used for', link)
-
     // Cache the result for future requests (expire after 1 day)
-    await redisClient.set(cacheKey, JSON.stringify(response), { EX: 86400 }) // EX is in seconds, not milliseconds
+    await redisClient?.set(cacheKey, JSON.stringify(response), { EX: 86400 }) // EX is in seconds, not milliseconds
 
     return Response.json(response)
   } catch (error) {

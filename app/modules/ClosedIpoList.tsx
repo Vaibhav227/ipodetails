@@ -1,7 +1,6 @@
 import { Button } from "~/components/ui/button";
 
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { DataTable } from "./Datatable";
 
 ("use client");
@@ -58,17 +57,9 @@ export function ClosedIpoList() {
   useEffect(() => {
     const fetchIpos = async () => {
       try {
-        const response = await axios.get(
-          "https://api.ipoalerts.in/ipos?status=closed",
-          {
-            headers: {
-              "x-api-key":
-                "41e6ffd4d8d23044eff55a2a7eaeb458626eeadc013380a98d727949bd4c7cff",
-            },
-          }
-        );
-        console.log(response.data.ipos);
-        setIpos(response.data.ipos);
+        const response = await fetch("/ipoalerts/closed");
+        const data = await response.json();
+        setIpos(data.ipos);
       } catch (error) {
         console.error("Error fetching IPO data:", error);
       }
